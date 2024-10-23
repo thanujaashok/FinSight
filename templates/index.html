@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Time Stock Monitoring</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .watchlist {
+            width: 200px;
+            border-left: 1px solid #ccc;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .watchlist-item {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .watchlist-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body class="bg-white text-black">
+    <div class="flex h-screen">
+        <div class="flex-grow flex flex-col">
+            <header class="p-4 bg-gray-800 text-white">
+                <div class="flex justify-between items-center mt-4">
+                    <div id="controls" class="flex space-x-4 items-center">
+                        <div class="flex items-center space-x-2">
+                            <label for="company" class="text-white">Company name</label>
+                            <input type="text" id="company" class="p-2 rounded border w-24 bg-gray-900 text-white" placeholder="Symbol" value="Sensex">
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label for="timeframe" class="text-white">Interval</label>
+                            <select id="timeframe" class="p-2 rounded border w-20 bg-gray-900 text-white">
+                                <option value="1m">1m</option>
+                                <option value="5m">5m</option>
+                                <option value="15m">15m</option>
+                                <option value="60m">1h</option>
+                                <option value="1d" selected>1d</option>
+                                <option value="1wk">1wk</option>
+                                <option value="1mo">1mo</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label for="emaPeriod" class="text-white">EMA</label>
+                            <input type="number" id="emaPeriod" class="p-2 rounded border w-16 bg-gray-900 text-white" placeholder="EMA" value="20" min="1" max="200">
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label for="rsiPeriod" class="text-white">RSI</label>
+                            <input type="number" id="rsiPeriod" class="p-2 rounded border w-16 bg-gray-900 text-white" placeholder="RSI" value="14" min="1" max="200">
+                        </div>
+                        <button id="fetchData" class="p-2 bg-blue-500 text-white rounded">Fetch Data</button>
+                        <div class="flex items-center space-x-2">
+                            <label for="autoUpdate" class="text-white">Auto-update</label>
+                            <input type="checkbox" id="autoUpdate" class="p-2 rounded border">
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <label for="updateFrequency" class="text-white">Frequency (s)</label>
+                            <input type="number" id="updateFrequency" class="p-2 rounded border w-12 bg-gray-900 text-white" placeholder="5" value="5" min="1">
+                        </div>
+                    </div>
+                    <button id="themeToggle" class="p-2 bg-gray-700 text-white rounded">Toggle Theme</button>
+                </div>
+            </header>
+            <main class="flex-grow">
+                <div id="chart" class="w-full h-2/3"></div>
+                <div id="rsiChart" class="w-full h-1/3"></div>
+            </main>
+        </div>
+        <div id="watchlist" class="watchlist p-4 bg-gray-100 text-black">
+            <h3 class="font-bold text-lg mb-4">Watchlist</h3>
+            <div id="watchlistItems" class="flex flex-col"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.production.js"></script>
+    <script src="static/main.js"></script>
+</body>
+</html>
